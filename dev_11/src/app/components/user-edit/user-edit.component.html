@@ -1,0 +1,49 @@
+<div class="col-lg-5 col-lg-offset-3">
+    
+<h1 class="h1-strong">{{title}}</h1>
+    <div class="alert alert-success" *ngIf="status == 'success'">
+        se han actualizado los datos correctamente
+    </div>
+    <div class="alert alert-warning" *ngIf="status == 'error'">
+        No se ha podido actualizado los datos correctamente
+    </div>
+    <form #userEditForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
+        <p> 
+            <label> Nombre</label>
+            <input type="text"  class="form-control" name="name" #name="ngModel" [(ngModel)]="user.name" required /> 
+            <span *ngIf="!name.value && name.touched">
+                El nombre es Obligatorio
+            </span>
+        </p>
+        <p> 
+            <label> apellidos</label>
+            <input type="text"  class="form-control" name="surname" #surname="ngModel" [(ngModel)]="user.surname" required /> 
+            <span *ngIf="!surname.value && surname.touched">
+                El Apellido es Obligatorio
+            </span>
+        </p>
+        <p> 
+            <label> Apodo</label>
+            <input type="text"  class="form-control" name="nick" #nick="ngModel" [(ngModel)]="user.nick" required /> 
+            <span *ngIf="!nick.value && nick.touched">
+                El apodo es obligatorio
+            </span>
+        </p>
+        <p> 
+            <label> Correo</label>
+            <input type="text" class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/> 
+            <span *ngIf="!email.value && email.touched">
+                El nombre es Obligatorio
+            </span>
+        </p>
+        <div *ngIf="user.image">
+            <img src="{{ url + 'get-image-user/' + user.image}}" style=" height:300px; width:300px; background-color:#EFEFEF; margin: 20px" class=" card-img-top rounded-circle mx-auto d-block"  />
+        </div>
+        <p>
+            <label > Subir avatar</label>
+            <input type="file" placeholder="Subir imagen" (change)="fileChangeEvent($event)" />
+        
+        </p>
+        <input type="submit" value="{{title}}" class="btn btn-primary" [disabled]="!userEditForm.form.valid" />
+    </form>
+</div>
